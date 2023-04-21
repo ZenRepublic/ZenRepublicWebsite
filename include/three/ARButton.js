@@ -1,6 +1,6 @@
 class ARButton {
 
-	static createButton( renderer, options = {} ) {
+	static createButton( renderer, options = {}, beforeRequestSession ) {
 
 		const button = document.createElement( 'button' );
 		let ARButtonControlsDomOverlay = false;
@@ -126,7 +126,7 @@ class ARButton {
 			button.onclick = function () {
 
 				if ( currentSession === null ) {
-
+					beforeRequestSession?.call(this, options);
 					navigator.xr.requestSession( 'immersive-ar', options ).then( onSessionStarted );
 
 				} else {
